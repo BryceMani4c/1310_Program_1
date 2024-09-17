@@ -4,7 +4,7 @@
 // Purpose:     Keeps tracks of your library of videoGames.
 
 #include "Data_Class.h"
-#include "Other_Class.h"
+#include "Text.h"
 #include "Storage_Class.h"
 #include <iostream>
 using namespace std;
@@ -39,7 +39,7 @@ int main(){
                 gameLibrary->loadVideoGamesFromFile(fileName);
                 break;
             case 2:
-                gameLibrary->addVideoGameToArray();
+                gameLibrary->saveVideoGamestoFile();
                 break;
             case 3:
                 gameLibrary->addVideoGameToArray();
