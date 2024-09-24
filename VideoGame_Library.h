@@ -11,12 +11,10 @@ public:
     void loadVideoGamesFromFile(string& filename);
     void removeVideoGameFromArray();
     void saveToFile(string& filename);
-    void setMaxGames(int numGames);
     ~VideoGameLibrary();
 
 private:
     videoGames* videoGamesArray;
-    videoGames* placeHolder;
     int maxGames;
     int numGames;
 

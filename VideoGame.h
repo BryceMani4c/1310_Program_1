@@ -9,5 +9,11 @@ public:
     videoGames();
     ~videoGames();
 private:
+    string* title;
+    string* platform;
+    int year;
+    string* genre;
+    string* ageRating;
+    int userRating;
 };
 #endif
