@@ -3,9 +3,9 @@
 // Date:        09/17/2024
 // Purpose:     Keeps tracks of your library of videoGames.
 
-#include "Data_Class.h"
+#include "VideoGame_Library.h"
 #include "Text.h"
-#include "Storage_Class.h"
+#include "VideoGame.h"
 #include <iostream>
 using namespace std;
 
@@ -28,6 +28,7 @@ int main(){
         cout << "\n4.  Remove a video Game.";
         cout << "\n5.  Display all video Games.";
         cout << "\n6.  Remove ALL video Games from this library and end program.";
+        cout << "\n7.  Open Search Bar.";
         cout << "\nCHOOSE 1-6:  ";
 
         cin >> choice;
