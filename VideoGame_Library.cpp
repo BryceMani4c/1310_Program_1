@@ -63,9 +63,36 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename){
 };
 
 void VideoGameLibrary::removeVideoGameFromArray(){
+if(numGames <= 1) {
+    cout << "\nThere must always be at least one video game in the library." << endl;
+    return;
+}else{
+    displayVideoGameTitles(); // double check this is correct once made
+    int choice;
+    cout << "\nEnter the number of the video game you wish to remove (1 to " << numGames << "); ";
+    cin >> choice;
+
+    for (int i = choice - 1; i < numGames - 1; i++) {
+        videoGamesArray[i] = videoGamesArray[i + 1];
+    }
+
+    cout << "Game number " << choice << " has been removed";
+};
 };
 
 void VideoGameLibrary::saveToFile(string& filename){
+    ofstream outputFile(filename);
+    if(!outputFile){
+        cout << "Error: Unable to open the file!";
+    }
+
+    for (int i = 0; i < numGames; i++) {
+        videoGamesArray[i].printVideoGameDetailsToFile(outputFile);
+    };
+
+    outputFile.close();
+
+    cout << "All video games have been printed to " << filename << "." << endl;
 };
 
 VideoGameLibrary::~VideoGameLibrary(){
