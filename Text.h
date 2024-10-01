@@ -1,3 +1,6 @@
+#ifndef TEXT_H
+#define TEXT_H
+
 #include <iostream>
 #include <cstring>
 
@@ -15,3 +18,5 @@ class Text{
         const char * textArray;
         int textLength;
 };
+
+#endif
