@@ -1,7 +1,7 @@
-#ifndef VIDEO_GAME_LIBRARY_H
-#define VIDEO_GAME_LIBRARY_H
+#ifndef VIDEOGAME_LIBRARY_H
+#define VIDEOGAME_LIBRARY_H
 
-#include "VideoGame.h"
+#include "Data_Class.h"
 using namespace std;
 
 class VideoGameLibrary{
@@ -14,7 +14,7 @@ public:
     ~VideoGameLibrary();
 
 private:
-    videoGames* videoGamesArray;
+    VideoGame** videoGamesArray;
     int maxGames;
     int numGames;
 

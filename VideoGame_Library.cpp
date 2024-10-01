@@ -11,13 +11,15 @@ using namespace std;
 
 VideoGameLibrary::VideoGameLibrary(int maxGames){
     this->maxGames = maxGames;
-    videoGamesArray = new videoGames[maxGames];
-    numGames = 0;
+    this->numGames = 0;
+    videoGamesArray = new VideoGame*[maxGames];
+    for (int i = 0; i < maxGames; ++i) {
+        videoGamesArray[i] = nullptr;
+    }
 };
 
 void VideoGameLibrary::resizeVideoGameArray(){
-    videoGames* placeHolder = new videoGames[maxGames * 2];
-
+    VideoGame** placeHolder = new VideoGame*[maxGames * 2];
     for (int count = 0; count < numGames; count++) {
         placeHolder[count] = videoGamesArray[count];
     }
@@ -47,7 +49,7 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename){
             getline(inputFile, ageRating);
             getline(inputFile, line);
             userRating = stoi(line);
-            videoGames(); // add arguments for constructor once made
+            VideoGame(); // add arguments for constructor once made
         }catch(const invalid_argument &e){
             exit = 1;
         };
@@ -87,7 +89,7 @@ void VideoGameLibrary::saveToFile(string& filename){
     }
 
     for (int i = 0; i < numGames; i++) {
-        videoGamesArray[i].printVideoGameDetailsToFile(outputFile);
+        videoGamesArray[i]->printVidGameDeetsFile(outputFile);
     };
 
     outputFile.close();

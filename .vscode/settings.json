@@ -3,5 +3,6 @@
         "stdexcept": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }
