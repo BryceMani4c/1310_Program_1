@@ -43,6 +43,47 @@ Text* VideoGame::getVideoGameTitle() const {
     return this->namePtr;
 
 }
+Text* getDeveloper() const {
+    return this->devPtr;
+}
+
+Text* getPublisher() const {
+    return this->pubPtr;
+}
+
+int getYearOfRelease() const {
+    return this->yr;
+}
+
+int getRating() const {
+    return this->rat;
+}
+
+    // Setters
+
+void setDeveloper(Text* developer) {
+        this->devPtr = developer;
+}
+
+void setTitle(Text* title) {
+        this->namePtr = title;
+}
+
+void setPublisher(Text* publisher) {
+        this->pubPtr = publisher;
+}
+
+void setYearOfRelease(int year) {
+    this->yr = year;
+}
+
+void setRating(int rating) {
+    if (rating >= 0 && rating <= 100) {
+        this->rat = rating;
+    } else {
+        std::cout << "Invalid rating. Rating should be between 0 and 100." << std::endl;
+    }
+}
 
 void VideoGame::printVideoGameDeets(){
 
