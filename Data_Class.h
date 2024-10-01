@@ -28,4 +28,4 @@ Text *pubPtr;
 int yr;
 int rat;
 
-}
+};
