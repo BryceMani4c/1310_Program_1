@@ -5,7 +5,7 @@
 
 #include "VideoGame_Library.h"
 #include "Text.h"
-#include "VideoGame.h"
+#include "Data_Class.h"
 #include <iostream>
 using namespace std;
 
@@ -19,6 +19,9 @@ int main(){
 
     int choice;
     string fileName;
+    VideoGameLibrary gameLibrary(capacity);
+
+
 
     do{
         cout << "\nWhat Would you like to do?";
@@ -37,27 +40,26 @@ int main(){
             case 1:
                 cout << "\nWhat is the name of the file? (example.txt) :  ";
                 cin >> fileName;
-                gameLibrary->loadVideoGamesFromFile(fileName);
+                gameLibrary.loadVideoGamesFromFile(fileName);
                 break;
             case 2:
-                gameLibrary->saveVideoGamestoFile();
+                gameLibrary.saveToFile();
                 break;
             case 3:
-                gameLibrary->addVideoGameToArray();
+                gameLibrary.addVideoGameToArray();
                 break;
             case 4:
-                gameLibrary->removeVideoGameFromArray();
+                gameLibrary.removeVideoGameFromArray();
                 break;
             case 5:
-                gameLibrary->displayVideoGames();
+                gameLibrary.displayVideoGames();
                 break;
             case 6:
-
+                delete[] gameLibrary;
                 break;
             default:
                 cout << "\nThat is not a valid choice.\nCHOOSE 1-6:  ";
                 break;
         }
     }while(choice != 6);
-
 }
