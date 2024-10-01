@@ -1,5 +1,4 @@
 #include <iostream>
-#include <Data_Class.cpp>
 #include <fstream>
 
 using namespace std;

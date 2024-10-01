@@ -15,13 +15,9 @@ int main(){
     cout << "How many video Games can your library hold?\n";
     cin >> capacity;
 
-    // add input to designate size for videogame library array
-
     int choice;
     string fileName;
     VideoGameLibrary gameLibrary(capacity);
-
-
 
     do{
         cout << "\nWhat Would you like to do?";
@@ -43,7 +39,9 @@ int main(){
                 gameLibrary.loadVideoGamesFromFile(fileName);
                 break;
             case 2:
-                gameLibrary.saveToFile();
+                cout << "\nWhat is the name of the file? (example.txt) :  ";
+                cin >> fileName;
+                gameLibrary.saveToFile(fileName);
                 break;
             case 3:
                 gameLibrary.addVideoGameToArray();
@@ -55,7 +53,6 @@ int main(){
                 gameLibrary.displayVideoGames();
                 break;
             case 6:
-                delete[] gameLibrary;
                 break;
             default:
                 cout << "\nThat is not a valid choice.\nCHOOSE 1-6:  ";
