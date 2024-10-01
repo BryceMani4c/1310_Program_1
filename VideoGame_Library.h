@@ -13,6 +13,7 @@ public:
     void saveToFile(string& filename);
     void addVideoGameToArray();
     void displayVideoGames();
+    void displayVideoGameTitles();
     ~VideoGameLibrary();
 
 private:

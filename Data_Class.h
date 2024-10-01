@@ -12,7 +12,7 @@ class VideoGame{
         ~VideoGame();
         Text getVideoGameTitle() const;
         void printVideoGameDeets();
-        void printVidGameDeetsFile(ofstream);
+        void printVidGameDeetsFile(ofstream&);
 
     private:
 
