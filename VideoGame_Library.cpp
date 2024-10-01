@@ -161,4 +161,7 @@ void displayVideoGameTitles()
             displayText(Norman);
         }
     }
+    else {
+        cout << "Library id empty. No video games to display." << endl;
+    }
 }
