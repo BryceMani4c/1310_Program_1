@@ -1,5 +1,5 @@
 // File Name:       VideoGame_Library.cpp
-// Author Name(s):  Bryson Bargas and 
+// Author Name(s):  Bryson Bargas and Mal Flesher
 // Date:            09/24/2024
 // Purpose:  
 
@@ -99,3 +99,69 @@ VideoGameLibrary::~VideoGameLibrary(){
     delete[] videoGamesArray;
     cout << "\nvideoGamesArray: released memory\n";
 };
+
+
+
+
+//mal
+//have to go through can replace variables
+
+void addVideoGameToArray()
+{
+    //ask user for info
+    cout << "Title:\t" << endl;
+    getline(cin, title);
+    cout << "Developer:\t" << endl;
+    getline(cin, developer);
+    cout << "Publisher:\t" << endl;
+    getline(cin, publisher);
+    cout << "Rating:\t" << endl;
+    cin >> rating;
+    cin.ignore();
+    cout << "Year of Release:\t" << endl;
+    cin >> release;
+    cin.ignore();
+
+    //adding video game & checking size/resizing
+    if (numGames < maxGames) {
+        videoGames newGame;
+        cin >> newGame;
+        videoGames[numGames] = newGame;
+        cout << "Video game added successfully" << endl;
+    }
+    else {
+        cout << "Video game not added successfully" << endl;
+        resizeVideoGameArray();
+        addVideoGametoArray();
+    }
+
+    numGames++;
+}
+
+void displayVideoGames()
+{
+    if(numGames > 0) {
+        for (int i=0; i < numGames; i++) {
+            cout << gamesArray[printVideoGameDetails()] << endl;
+        }
+    }
+    else {
+        cout << "Library id empty. No video games to display." << endl;
+    }
+}
+
+void displayVideoGameTitles()
+{
+    //variables
+    string Norman;
+
+    if(numGames > 0){
+        for (int i=0; i < numGames; i++) {
+            Norman = gamesArray[getVideoGameTitle];
+            displayText(Norman);
+        }
+    }
+    else {
+        cout << "Library id empty. No video games to display." << endl;
+    }
+}
