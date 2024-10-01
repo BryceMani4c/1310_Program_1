@@ -11,6 +11,9 @@ public:
     void loadVideoGamesFromFile(string& filename);
     void removeVideoGameFromArray();
     void saveToFile(string& filename);
+    void addVideoGameToArray();
+    void displayVideoGames();
+    void displayVideoGameTitles();
     ~VideoGameLibrary();
 
 private:

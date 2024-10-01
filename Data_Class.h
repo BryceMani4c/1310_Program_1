@@ -1,30 +1,26 @@
+#ifndef DATA_CLASS_H
+#define DATA_CLASS_H
 #include <iostream>
 #include <fstream>
+#include "Text.h"
 
 using namespace std;
 
 class VideoGame{
+    public:
+        VideoGame(Text*, Text*, Text*, int, int);
+        ~VideoGame();
+        Text getVideoGameTitle() const;
+        void printVideoGameDeets();
+        void printVidGameDeetsFile(ofstream&);
 
-public:
+    private:
 
-VideoGame(Text*, Text*, Text*, int, int);
-
-~VideoGame();
-
-Text* VideoGame::getVideoGameTitle() const;
-
-void VideoGame::printVideoGameDeets();
-
-void VideoGame::printVidGameDeetsFile(ofstream);
-
-
-
-private:
-
-Text *namePtr;
-Text *devPtr;
-Text *pubPtr;
-int yr;
-int rat;
-
+        Text *namePtr;
+        Text *devPtr;
+        Text *pubPtr;
+        int yr;
+        int rat;
 };
+
+#endif

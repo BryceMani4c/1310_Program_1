@@ -41,15 +41,11 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename){
     int arrayCounter = 0;
     while(exit == 0){
         try{
-            getline(inputFile, title);
-            getline(inputFile, platform);
-            getline(inputFile, line);
-            year = stoi(line);
-            getline(inputFile, genre);
-            getline(inputFile, ageRating);
-            getline(inputFile, line);
-            userRating = stoi(line);
-            VideoGame(); // add arguments for constructor once made
+            getline(inputFile, videoGamesArray[numGames]->namePtr);
+            getline(inputFile, videoGamesArray[numGames]->devPtr);
+            getline(inputFile, videoGamesArray[numGames]->pubPtr);
+            year = stoi(videoGamesArray[numGames]->yr);
+            userRating = stoi(videoGamesArray[numGames]->rat);
         }catch(const invalid_argument &e){
             exit = 1;
         };
@@ -87,10 +83,11 @@ void VideoGameLibrary::saveToFile(string& filename){
     if(!outputFile){
         cout << "Error: Unable to open the file!";
     }
-
-    for (int i = 0; i < numGames; i++) {
-        videoGamesArray[i]->printVidGameDeetsFile(outputFile);
-    };
+    else{
+        for(int i = 0; i < numGames; i++){
+            videoGamesArray[i]->printVidGameDeetsFile(outputFile);
+        }
+    }
 
     outputFile.close();
 
@@ -102,26 +99,20 @@ VideoGameLibrary::~VideoGameLibrary(){
     cout << "\nvideoGamesArray: released memory\n";
 };
 
-
-
-
-//mal
-//have to go through can replace variables
-
 void addVideoGameToArray()
 {
     //ask user for info
     cout << "Title:\t" << endl;
-    getline(cin, title);
+    getline(cin, videoGamesArray[numGames]->namePtr);
     cout << "Developer:\t" << endl;
-    getline(cin, developer);
+    getline(cin, videoGamesArray[numGames]->devPtr);
     cout << "Publisher:\t" << endl;
-    getline(cin, publisher);
+    getline(cin, videoGamesArray[numGames]->pubPtr);
     cout << "Rating:\t" << endl;
-    cin >> rating;
+    cin >> videoGamesArray[numGames]->yr;
     cin.ignore();
     cout << "Year of Release:\t" << endl;
-    cin >> release;
+    cin >> videoGamesArray[numGames]->rat;
     cin.ignore();
 
     //adding video game & checking size/resizing
@@ -134,7 +125,7 @@ void addVideoGameToArray()
     else {
         cout << "Video game not added successfully" << endl;
         resizeVideoGameArray();
-        addVideoGametoArray();
+        addVideoGameToArray();
     }
 
     numGames++;

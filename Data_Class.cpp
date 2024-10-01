@@ -7,7 +7,7 @@ Dri
 
 #include <iostream>
 #include <fstream>
-#include <Text.h>
+#include "Text.h"
 
 using namespace std;
 
@@ -38,7 +38,7 @@ return;
     return;
 }
 
-Text* VideoGame::getVideoGameTitle() const {
+Text* getVideoGameTitle() const {
 
     return this->namePtr;
 
@@ -85,7 +85,7 @@ void setRating(int rating) {
     }
 }
 
-void VideoGame::printVideoGameDeets(){
+void printVideoGameDeets(){
 
     cout<< "Title: ";
     namePtr->displayText();
@@ -98,7 +98,7 @@ void VideoGame::printVideoGameDeets(){
     return;
 }
 
-void VideoGame::printVidGameDeetsFile(ofstream vidGamFile){
+void printVidGameDeetsFile(ofstream& vidGamFile){
 
     vidGamFile.open("TEXT_CASE.txt");
     vidGamFile<< "Title: " << namePtr->getText()<<endl;
