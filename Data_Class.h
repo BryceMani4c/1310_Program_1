@@ -10,7 +10,19 @@ class VideoGame{
     public:
         VideoGame(Text*, Text*, Text*, int, int);
         ~VideoGame();
-        Text getVideoGameTitle() const;
+        // Prototypes for the getters
+        Text* getVideoGameTitle() const;
+        Text* getDeveloper() const;
+        Text* getPublisher() const;
+        int getYearOfRelease() const;
+        int getRating() const;
+
+        // Prototypes for the setters
+        void setDeveloper(Text* developer);
+        void setTitle(Text* title);
+        void setPublisher(Text* publisher);
+        void setYearOfRelease(int year);
+        void setRating(int rating);
         void printVideoGameDeets();
         void printVidGameDeetsFile(ofstream&);
 

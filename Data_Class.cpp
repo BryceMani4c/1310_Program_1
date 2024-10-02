@@ -59,7 +59,7 @@ int getRating() const {
     return this->rat;
 }
 
-    // Setters
+// Setters
 
 void setDeveloper(Text* developer) {
         this->devPtr = developer;
