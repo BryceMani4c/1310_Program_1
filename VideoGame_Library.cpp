@@ -99,7 +99,7 @@ VideoGameLibrary::~VideoGameLibrary(){
     cout << "\nvideoGamesArray: released memory\n";
 };
 
-void addVideoGameToArray()
+void VideoGameLibrary::addVideoGameToArray()
 {
     //ask user for info
     cout << "Title:\t" << endl;
@@ -131,11 +131,11 @@ void addVideoGameToArray()
     numGames++;
 }
 
-void displayVideoGames()
+void VideoGameLibrary::displayVideoGames()
 {
     if(numGames > 0) {
         for (int i=0; i < numGames; i++) {
-            cout << gamesArray[printVideoGameDetails()] << endl;
+            cout << videoGamesArray[printVideoGameDetails()] << endl;
         }
     }
     else {
@@ -143,7 +143,7 @@ void displayVideoGames()
     }
 }
 
-void displayVideoGameTitles()
+void VideoGameLibrary::displayVideoGameTitles()
 {
     //variables
     string Norman;
