@@ -4,7 +4,7 @@
 #include "Data_Class.h"
 using namespace std;
 
-class VideoGameLibrary{
+class VideoGameLibrary {
 public:
     VideoGameLibrary(int capacity);
     void resizeVideoGameArray();
@@ -20,7 +20,6 @@ private:
     VideoGame** videoGamesArray;
     int maxGames;
     int numGames;
-
 };
 
 #endif

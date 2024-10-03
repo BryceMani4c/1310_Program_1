@@ -1,83 +1,66 @@
-/*
-FileName: Data_Class.cpp
-Dri
-
-*/
-
-
 #include <iostream>
 #include <fstream>
 #include "Text.h"
+#include "Data_Class.h"
 
 using namespace std;
 
-class VideoGame{
-
-
-
-public:
-
-VideoGame(Text *title, Text *dev, Text *pub, int rating, int yr){
-
-this->devPtr = dev;
-this->namePtr = title;
-this->pubPtr = pub;
-this->rat = rating;
-this->yr = yr;
-return;
-
-
+// Constructor
+VideoGame::VideoGame(Text* title, Text* dev, Text* pub, int rating, int yr) {
+    this->namePtr = title;
+    this->devPtr = dev;
+    this->pubPtr = pub;
+    this->rat = rating;
+    this->yr = yr;
 }
 
-~VideoGame(){
-
+// Destructor
+VideoGame::~VideoGame() {
     delete this->namePtr;
     delete this->devPtr;
     delete this->pubPtr;
-    cout << "Video Game Destructor called.";
-    return;
+    cout << "Video Game Destructor called." << endl;
 }
 
-Text* getVideoGameTitle() const {
-
+// Getter functions
+Text* VideoGame::getVideoGameTitle() const {
     return this->namePtr;
-
 }
-Text* getDeveloper() const {
+
+Text* VideoGame::getDeveloper() const {
     return this->devPtr;
 }
 
-Text* getPublisher() const {
+Text* VideoGame::getPublisher() const {
     return this->pubPtr;
 }
 
-int getYearOfRelease() const {
+int VideoGame::getYearOfRelease() const {
     return this->yr;
 }
 
-int getRating() const {
+int VideoGame::getRating() const {
     return this->rat;
 }
 
-// Setters
-
-void setDeveloper(Text* developer) {
-        this->devPtr = developer;
+// Setter functions
+void VideoGame::setTitle(Text* title) {
+    this->namePtr = title;
 }
 
-void setTitle(Text* title) {
-        this->namePtr = title;
+void VideoGame::setDeveloper(Text* developer) {
+    this->devPtr = developer;
 }
 
-void setPublisher(Text* publisher) {
-        this->pubPtr = publisher;
+void VideoGame::setPublisher(Text* publisher) {
+    this->pubPtr = publisher;
 }
 
-void setYearOfRelease(int year) {
+void VideoGame::setYearOfRelease(int year) {
     this->yr = year;
 }
 
-void setRating(int rating) {
+void VideoGame::setRating(int rating) {
     if (rating >= 0 && rating <= 100) {
         this->rat = rating;
     } else {
@@ -85,39 +68,22 @@ void setRating(int rating) {
     }
 }
 
-void printVideoGameDeets(){
-
-    cout<< "Title: ";
+// Member functions
+void VideoGame::printVideoGameDeets() {
+    cout << "Title: ";
     namePtr->displayText();
-    cout<< "Developer: ";
+    cout << "Developer: ";
     devPtr->displayText();
-    cout<< "Publisher: ";
+    cout << "Publisher: ";
     pubPtr->displayText();
-    cout<< "Rating: " << rat << "/100";
-    cout<< "Year of Release: "<< yr; 
-    return;
+    cout << "Rating: " << rat << "/100" << endl;
+    cout << "Year of Release: " << yr << endl;
 }
 
-void printVidGameDeetsFile(ofstream& vidGamFile){
-
-    vidGamFile.open("TEXT_CASE.txt");
-    vidGamFile<< "Title: " << namePtr->getText()<<endl;
-    vidGamFile<< "Developer: " << devPtr->getText()<<endl;
-    vidGamFile<< "Publisher: " << pubPtr->getText()<<endl;
-    vidGamFile<< "Rating: " << rat << "/100";
-    vidGamFile<< "Year of Release: "<< yr; 
-    vidGamFile.close();
-    return;
-
+void VideoGame::printVidGameDeetsFile(ofstream& vidGamFile) {
+    vidGamFile << "Title: " << namePtr->getText() << endl;
+    vidGamFile << "Developer: " << devPtr->getText() << endl;
+    vidGamFile << "Publisher: " << pubPtr->getText() << endl;
+    vidGamFile << "Rating: " << rat << "/100" << endl;
+    vidGamFile << "Year of Release: " << yr << endl;
 }
-
-private:
-
-    ofstream vidGamFile;
-    Text* namePtr;
-    Text* devPtr;
-    Text* pubPtr;
-    int yr;
-    int rat;
-
-};

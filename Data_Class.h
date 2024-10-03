@@ -6,31 +6,33 @@
 
 using namespace std;
 
-class VideoGame{
+class VideoGame {
     public:
         VideoGame(Text*, Text*, Text*, int, int);
         ~VideoGame();
-        // Prototypes for the getters
+
+        // Getters
         Text* getVideoGameTitle() const;
         Text* getDeveloper() const;
         Text* getPublisher() const;
         int getYearOfRelease() const;
         int getRating() const;
 
-        // Prototypes for the setters
+        // Setters
         void setDeveloper(Text* developer);
         void setTitle(Text* title);
         void setPublisher(Text* publisher);
         void setYearOfRelease(int year);
         void setRating(int rating);
+
+        // Other functions
         void printVideoGameDeets();
         void printVidGameDeetsFile(ofstream&);
 
     private:
-
-        Text *namePtr;
-        Text *devPtr;
-        Text *pubPtr;
+        Text* namePtr;
+        Text* devPtr;
+        Text* pubPtr;
         int yr;
         int rat;
 };
