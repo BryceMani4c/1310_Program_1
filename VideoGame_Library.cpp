@@ -119,7 +119,7 @@ void VideoGameLibrary::addVideoGameToArray()
     if (numGames < maxGames) {
         videoGames newGame;
         cin >> newGame;
-        videoGames[numGames] = newGame;
+        videoGamesArray[numGames] = newGame;
         cout << "Video game added successfully" << endl;
     }
     else {
@@ -150,7 +150,7 @@ void VideoGameLibrary::displayVideoGameTitles()
 
     if(numGames > 0){
         for (int i=0; i < numGames; i++) {
-            Norman = gamesArray[getVideoGameTitle];
+            Norman = videoGamesArray[getVideoGameTitle];
             displayText(Norman);
         }
     }
