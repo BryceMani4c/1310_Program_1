@@ -8,12 +8,11 @@ Dri
 #include <iostream>
 #include <fstream>
 #include "Text.h"
+#include "Data_Class.h"
 
 using namespace std;
 
 class VideoGame{
-
-
 
 public:
 
@@ -27,15 +26,6 @@ this->yr = yr;
 return;
 
 
-}
-
-~VideoGame(){
-
-    delete this->namePtr;
-    delete this->devPtr;
-    delete this->pubPtr;
-    cout << "Video Game Destructor called.";
-    return;
 }
 
 Text* getVideoGameTitle() const {
@@ -109,6 +99,14 @@ void printVidGameDeetsFile(ofstream& vidGamFile){
     vidGamFile.close();
     return;
 
+}
+~VideoGame(){
+
+    delete this->namePtr;
+    delete this->devPtr;
+    delete this->pubPtr;
+    cout << "Video Game Destructor called.";
+    return;
 }
 
 private:

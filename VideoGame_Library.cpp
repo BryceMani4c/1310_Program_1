@@ -4,6 +4,7 @@
 // Purpose:  
 
 #include "VideoGame_Library.h"
+#include "Data_Class.h"
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -36,16 +37,31 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename){
     }
 
     int exit = 0;
-    string title, platform, genre, ageRating, line;
+    string title, dev, pub;
     int year, userRating;
     int arrayCounter = 0;
     while(exit == 0){
         try{
-            getline(inputFile, videoGamesArray[numGames]->namePtr);
-            getline(inputFile, videoGamesArray[numGames]->devPtr);
-            getline(inputFile, videoGamesArray[numGames]->pubPtr);
-            year = stoi(videoGamesArray[numGames]->yr);
-            userRating = stoi(videoGamesArray[numGames]->rat);
+
+            getline(inputFile, title);
+            Text titleText = Text(title.c_str(), title.length());
+            videoGamesArray[arrayCounter]->setTitle(&titleText);
+
+            getline(inputFile, dev);
+            Text devText = Text(dev.c_str(), dev.length());
+            videoGamesArray[arrayCounter]->setDeveloper(&devText);
+
+            getline(inputFile, pub);
+            Text pubText = Text(pub.c_str(), pub.length());
+            videoGamesArray[arrayCounter]->setPublisher(&pubText);
+
+            inputFile >> year;
+            inputFile >> userRating;
+            inputFile.ignore();
+
+            videoGamesArray[arrayCounter]->setYearOfRelease(year);
+            videoGamesArray[arrayCounter]->setRating(userRating);
+
         }catch(const invalid_argument &e){
             exit = 1;
         };
@@ -102,23 +118,32 @@ VideoGameLibrary::~VideoGameLibrary(){
 void VideoGameLibrary::addVideoGameToArray()
 {
     //ask user for info
+    string title, dev, pub;
+    int yr, rat;
     cout << "Title:\t" << endl;
-    getline(cin, videoGamesArray[numGames]->namePtr);
+    getline(cin,title);
+    Text titleText = Text(title.c_str(), title.length());
+    videoGamesArray[numGames]->setTitle(&titleText);
     cout << "Developer:\t" << endl;
-    getline(cin, videoGamesArray[numGames]->devPtr);
+    getline(cin,dev);
+    Text devText = Text(dev.c_str(), dev.length());
+    videoGamesArray[numGames]->setDeveloper(&devText);
     cout << "Publisher:\t" << endl;
-    getline(cin, videoGamesArray[numGames]->pubPtr);
+    getline(cin, pub);
+    Text pubText = Text(pub.c_str(), pub.length());
+    videoGamesArray[numGames]->setPublisher(&pubText);
     cout << "Rating:\t" << endl;
-    cin >> videoGamesArray[numGames]->yr;
+    cin >> rat;
     cin.ignore();
-    cout << "Year of Release:\t" << endl;
-    cin >> videoGamesArray[numGames]->rat;
+    videoGamesArray[numGames]->setRating(rat);
+    cout << "Year:\t" << endl;
+    cin >> yr;
     cin.ignore();
+    videoGamesArray[numGames]->setRating(yr);
 
     //adding video game & checking size/resizing
     if (numGames < maxGames) {
-        videoGames newGame;
-        cin >> newGame;
+        VideoGame* newGame= new VideoGame(videoGamesArray[numGames]->getVideoGameTitle(),videoGamesArray[numGames]->getDeveloper(), videoGamesArray[numGames]->getPublisher(), videoGamesArray[numGames]->getRating(), videoGamesArray[numGames]->getYearOfRelease());
         videoGamesArray[numGames] = newGame;
         cout << "Video game added successfully" << endl;
     }
@@ -135,7 +160,7 @@ void VideoGameLibrary::displayVideoGames()
 {
     if(numGames > 0) {
         for (int i=0; i < numGames; i++) {
-            cout << videoGamesArray[printVideoGameDetails()] << endl;
+            videoGamesArray[numGames]->printVideoGameDeets();
         }
     }
     else {
@@ -150,8 +175,7 @@ void VideoGameLibrary::displayVideoGameTitles()
 
     if(numGames > 0){
         for (int i=0; i < numGames; i++) {
-            Norman = videoGamesArray[getVideoGameTitle];
-            displayText(Norman);
+            videoGamesArray[i]->getVideoGameTitle()->displayText();
         }
     }
     else {

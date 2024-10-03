@@ -9,7 +9,6 @@ class Text{
         Text();
         Text(const char*, int);
         ~Text();
-
         void displayText();
         const char * getText();
         int getLength();

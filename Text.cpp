@@ -36,3 +36,5 @@ const char * Text::getText(){
 int Text::getLength(){
     return this->textLength;
 }
+
+// Clears the existing text in the Text object
