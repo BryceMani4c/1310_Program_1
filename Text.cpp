@@ -21,7 +21,6 @@ Text::Text(const char * inputTextArray, int textLength) : textLength(textLength)
 
 Text::~Text(){ //deletes the dynamically allocated char array in this Text instance. Has a message along with it for some reason.
     delete this->textArray;
-    std::cout << "Text destructor: Released memory for textArray." << std::endl;
 }
 
 
@@ -36,5 +35,3 @@ const char * Text::getText(){
 int Text::getLength(){
     return this->textLength;
 }
-
-// Clears the existing text in the Text object
