@@ -24,14 +24,14 @@ Text::~Text(){ //deletes the dynamically allocated char array in this Text insta
 }
 
 
-void Text::displayText(){ 
+void Text::displayText(){ //Displays text in the terminal
     std::cout << this->textArray;
 }
 
-const char * Text::getText(){
+const char * Text::getText(){ //returns the text
     return this->textArray;
 }
 
-int Text::getLength(){
+int Text::getLength(){ //returns text length
     return this->textLength;
 }

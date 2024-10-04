@@ -13,7 +13,7 @@ Purpose: Functions for the VideoGame class. This class will store and manipulate
 
 using namespace std;
 
-VideoGame::VideoGame(Text* title, Text* dev, Text* pub, int rating, int year) {
+VideoGame::VideoGame(Text* title, Text* dev, Text* pub, int rating, int year) {         //Creates the video game objects
     this->namePtr = title;
     this->devPtr = dev;
     this->pubPtr = pub;
@@ -21,24 +21,24 @@ VideoGame::VideoGame(Text* title, Text* dev, Text* pub, int rating, int year) {
     this->yr = year;
 }
 
-Text* VideoGame::getVideoGameTitle() const {
+Text* VideoGame::getVideoGameTitle() const {                                            //Returns the name of the video game
 
     return this->namePtr;
 
 }
-Text* VideoGame::getDeveloper() const {
+Text* VideoGame::getDeveloper() const {                                                 //Returns the developer of the video game
     return this->devPtr;
 }
 
-Text* VideoGame::getPublisher() const {
+Text* VideoGame::getPublisher() const {                                                 //Returns the publisher of the video game
     return this->pubPtr;
 }
 
-int VideoGame::getYearOfRelease() const {
+int VideoGame::getYearOfRelease() const {                                               //Returns the year the video game released
     return this->yr;
 }
 
-int VideoGame::getRating() const {
+int VideoGame::getRating() const {                                                      //Returns the rating of the video game
     return this->rat;
 }
 
@@ -77,20 +77,20 @@ void VideoGame::setRating(int rating) {
     }
 }
 
-void VideoGame::printVideoGameDeets(){
+void VideoGame::printVideoGameDeets(){                                          //Prints the details of the video game (all stored info)
 
-    cout<< "\nTitle: ";
+    cout<< "\nTitle: \t\t\t";
     namePtr->displayText();
-    cout<< "\nDeveloper: ";
+    cout<< "\nDeveloper: \t\t";
     devPtr->displayText();
-    cout<< "\nPublisher: ";
+    cout<< "\nPublisher: \t\t";
     pubPtr->displayText();
-    cout<< "\nRating: " << rat << "/100";
-    cout<< "\nYear of Release: "<< yr; 
+    cout<< "\nRating: \t\t" << rat << "/100";
+    cout<< "\nYear of Release: \t"<< yr << endl << endl; 
     return;
 }
 
-void VideoGame::printVidGameDeetsFile(ofstream& vidGamFile){
+void VideoGame::printVidGameDeetsFile(ofstream& vidGamFile){                    //Saves the details of a video game to a file
 
     vidGamFile.open("TEXT_CASE.txt");
     vidGamFile<< "Title: " << namePtr->getText()<<endl;
@@ -102,7 +102,7 @@ void VideoGame::printVidGameDeetsFile(ofstream& vidGamFile){
     return;
 
 }
-VideoGame::~VideoGame(){
+VideoGame::~VideoGame(){                                                        //Destroys the video game object
 
     delete this->namePtr;
     delete this->devPtr;

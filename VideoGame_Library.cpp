@@ -10,7 +10,7 @@
 #include <string>
 using namespace std;
 
-VideoGameLibrary::VideoGameLibrary(int maxGames){
+VideoGameLibrary::VideoGameLibrary(int maxGames){           //Constructs the library and sets the library size
     this->maxGames = maxGames;
     this->numGames = 0;
     videoGamesArray = new VideoGame*[maxGames];
@@ -19,29 +19,29 @@ VideoGameLibrary::VideoGameLibrary(int maxGames){
     }
 };
 
-void VideoGameLibrary::resizeVideoGameArray(){
-    VideoGame** placeHolder = new VideoGame*[maxGames * 2];
+void VideoGameLibrary::resizeVideoGameArray(){                  //Changes the size of the library
+    VideoGame** placeHolder = new VideoGame*[maxGames * 2];     //If the array isn't big enough, it'll double the size of it
     for (int count = 0; count < numGames; count++) {
-        placeHolder[count] = videoGamesArray[count];
+        placeHolder[count] = videoGamesArray[count];            //Makes sure the video games currently in the library move to the new array
     }
 
-    delete[] videoGamesArray;
+    delete[] videoGamesArray;                                   //Clean up of the old array
     videoGamesArray = placeHolder;
     maxGames *= 2;
 };
 
-void VideoGameLibrary::loadVideoGamesFromFile(string& filename) {
+void VideoGameLibrary::loadVideoGamesFromFile(string& filename) {       //Loads video games from a text file
     ifstream inputFile(filename);
-    if (!inputFile) {
-        cout << "Error: Unable to open the file!" << endl;
+    if (!inputFile) {                                                   //Checking to make sure there is a file and that it's able to access it
+        cout << "Error: Unable to open the file!" << endl;              //otherwise, lets user know there's an error
         return;
     }
 
     string title, dev, pub;
     int year, userRating;
     
-    while (getline(inputFile, title)) {
-        getline(inputFile, dev);
+    while (getline(inputFile, title)) {                                 //While the text file still has titles to be read
+        getline(inputFile, dev);                                        //saves the data to temp variables
         getline(inputFile, pub);
         inputFile >> userRating;
         inputFile >> year;
@@ -56,7 +56,7 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename) {
         if (numGames >= maxGames) {
             resizeVideoGameArray();  // Resize if array is full
         }
-        videoGamesArray[numGames] = new VideoGame(titleText, devText, pubText, userRating, year);
+        videoGamesArray[numGames] = new VideoGame(titleText, devText, pubText, userRating, year);       //Adds a new video game object
         numGames++;
 
         cout << "\n" << title << " was added to the video game library!" << endl;
@@ -65,17 +65,17 @@ void VideoGameLibrary::loadVideoGamesFromFile(string& filename) {
     inputFile.close();
 }
 
-void VideoGameLibrary::removeVideoGameFromArray() {
-    if (numGames <= 1) {
+void VideoGameLibrary::removeVideoGameFromArray() {                                                     //Removes a video game from the library
+    if (numGames <= 1) {                                                                                //Checks for no video games
         cout << "\nThere must always be at least one video game in the library." << endl;
         return;
-    } else {
+    } else {                                                                                            //otherwise, it'll display all games currently in the library
         displayVideoGameTitles();
         int choice;
-        cout << "\nEnter the number of the video game you wish to remove (1 to " << numGames << "); ";
+        cout << "\nEnter the number of the video game you wish to remove (1 to " << numGames << "); ";  //Asks user how many games to be removed
         cin >> choice;
 
-        if (choice < 1 || choice > numGames) {
+        if (choice < 1 || choice > numGames) {                                                          //Input validation
             cout << "Invalid choice." << endl;
             return;
         }
@@ -98,10 +98,10 @@ void VideoGameLibrary::removeVideoGameFromArray() {
     }
 }
 
-void VideoGameLibrary::saveToFile(string& filename) {
+void VideoGameLibrary::saveToFile(string& filename) {                               //Saves the current library to a text file
     ofstream outputFile(filename); // Open in overwrite mode
-    if (!outputFile) {
-        cout << "Error: Unable to open the file!" << endl;
+    if (!outputFile) {                                                              //Checks to make sure the file exists and can be opened
+        cout << "Error: Unable to open the file!" << endl;                          //then lets user know
         return;
     }
 
@@ -126,26 +126,26 @@ void VideoGameLibrary::saveToFile(string& filename) {
 }
 
 
-void VideoGameLibrary::addVideoGameToArray() {
+void VideoGameLibrary::addVideoGameToArray() {                                          //Adds a video game to the library
     string title, dev, pub;
     int yr, rat;
 
-    if (numGames < maxGames) {
-        cout << "Title:\t" << endl;
+    if (numGames < maxGames) {                                                    //Checks to make sure there's room in the array
+        cout << "\nTitle:\t\t";                                                     //Adds data from user to the library
         cin.ignore(); // Ensure to ignore any leftover input before getline
         getline(cin, title);
 
-        cout << "Developer:\t" << endl;
+        cout << "Developer:\t";
         getline(cin, dev);
 
-        cout << "Publisher:\t" << endl;
+        cout << "Publisher:\t";
         getline(cin, pub);
 
-        cout << "Rating:\t" << endl;
+        cout << "Rating:\t\t";
         cin >> rat;
         cin.ignore();  // Ignore remaining newline before next input
 
-        cout << "Year:\t" << endl;
+        cout << "Year:\t\t";
         cin >> yr;
         cin.ignore();
 
@@ -160,44 +160,41 @@ void VideoGameLibrary::addVideoGameToArray() {
 
         cout << "Video game added successfully" << endl;
         numGames++;
-    } else {
-        cout << "Library is full. Resizing..." << endl;
+    } else {                                                                            //If there's no room, calls the resize function to double size of library
+        cout << "Library is full. Resizing..." << endl;                               
         resizeVideoGameArray();
     }
 }
 
-VideoGameLibrary::~VideoGameLibrary() {
+VideoGameLibrary::~VideoGameLibrary() {                                                 //Destroys the library to free memory
     for (int i = 0; i < numGames; i++) {
         delete videoGamesArray[i];  // Free the memory for each VideoGame
     }
     delete[] videoGamesArray;  // Free the array itself
 }
 
-void VideoGameLibrary::displayVideoGames()
+void VideoGameLibrary::displayVideoGames()                                              //Displays all video games and the details currently in the library
 {
-    if (numGames > 0) {
+    if (numGames > 0) {                                                                 //Checks to make sure there are video games in the library
         for (int i = 0; i < numGames; i++) {
             cout << "\n";
             videoGamesArray[i]->printVideoGameDeets();  // Use i instead of numGames
         }
     }
-    else {
+    else {                                                                              //otherwise, informs user of issue
         cout << "Library is empty. No video games to display." << endl;
     }
 }
 
-void VideoGameLibrary::displayVideoGameTitles()
+void VideoGameLibrary::displayVideoGameTitles()                                         //Exact same as the last function but displays only the titles
 {
-    //variables
-    string Norman;
-
-    if(numGames > 0){
+    if(numGames > 0){                                                                   
         for (int i=0; i < numGames; i++){
             cout << "\n";
             videoGamesArray[i]->getVideoGameTitle()->displayText();
         }
     }
     else{
-        cout << "Library id empty. No video games to display." << endl;
+        cout << "Library is empty. No video games to display." << endl;
     }
 }
