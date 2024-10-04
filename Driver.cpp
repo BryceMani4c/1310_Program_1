@@ -14,6 +14,7 @@ int main(){
     int capacity;
     cout << "How many video Games can your library hold?\n";
     cin >> capacity;
+    cin.ignore();
 
     int choice;
     string fileName;
@@ -27,7 +28,6 @@ int main(){
         cout << "\n4.  Remove a video Game.";
         cout << "\n5.  Display all video Games.";
         cout << "\n6.  Remove ALL video Games from this library and end program.";
-        cout << "\n7.  Open Search Bar.";
         cout << "\nCHOOSE 1-6:  ";
 
         cin >> choice;

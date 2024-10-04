@@ -30,141 +30,159 @@ void VideoGameLibrary::resizeVideoGameArray(){
     maxGames *= 2;
 };
 
-void VideoGameLibrary::loadVideoGamesFromFile(string& filename){
+void VideoGameLibrary::loadVideoGamesFromFile(string& filename) {
     ifstream inputFile(filename);
-    if(!inputFile){
-        cout << "Error: Unable to open the file!";
+    if (!inputFile) {
+        cout << "Error: Unable to open the file!" << endl;
+        return;
     }
 
-    int exit = 0;
     string title, dev, pub;
     int year, userRating;
-    int arrayCounter = 0;
-    while(exit == 0){
-        try{
-
-            getline(inputFile, title);
-            Text titleText = Text(title.c_str(), title.length());
-            videoGamesArray[arrayCounter]->setTitle(&titleText);
-
-            getline(inputFile, dev);
-            Text devText = Text(dev.c_str(), dev.length());
-            videoGamesArray[arrayCounter]->setDeveloper(&devText);
-
-            getline(inputFile, pub);
-            Text pubText = Text(pub.c_str(), pub.length());
-            videoGamesArray[arrayCounter]->setPublisher(&pubText);
-
-            inputFile >> year;
-            inputFile >> userRating;
-            inputFile.ignore();
-
-            videoGamesArray[arrayCounter]->setYearOfRelease(year);
-            videoGamesArray[arrayCounter]->setRating(userRating);
-
-        }catch(const invalid_argument &e){
-            exit = 1;
-        };
-
-        if(exit == 0){
-            cout << "\n" << title << " was added to the video game library!\n";
-            numGames = numGames + 1;
-
-        }
-
-    };
     
-};
+    while (getline(inputFile, title)) {
+        getline(inputFile, dev);
+        getline(inputFile, pub);
+        inputFile >> userRating;
+        inputFile >> year;
+        inputFile.ignore();  // Ignore the newline after reading the year
 
-void VideoGameLibrary::removeVideoGameFromArray(){
-if(numGames <= 1) {
-    cout << "\nThere must always be at least one video game in the library." << endl;
-    return;
-}else{
-    displayVideoGameTitles(); // double check this is correct once made
-    int choice;
-    cout << "\nEnter the number of the video game you wish to remove (1 to " << numGames << "); ";
-    cin >> choice;
+        // Dynamically create Text objects after reading the data from the file
+        Text* titleText = new Text(title.c_str(), title.length());
+        Text* devText = new Text(dev.c_str(), dev.length());
+        Text* pubText = new Text(pub.c_str(), pub.length());
 
-    for (int i = choice - 1; i < numGames - 1; i++) {
-        videoGamesArray[i] = videoGamesArray[i + 1];
-    }
-
-    cout << "Game number " << choice << " has been removed";
-};
-};
-
-void VideoGameLibrary::saveToFile(string& filename){
-    ofstream outputFile(filename);
-    if(!outputFile){
-        cout << "Error: Unable to open the file!";
-    }
-    else{
-        for(int i = 0; i < numGames; i++){
-            videoGamesArray[i]->printVidGameDeetsFile(outputFile);
+        // Create a new VideoGame object and add it to the array
+        if (numGames >= maxGames) {
+            resizeVideoGameArray();  // Resize if array is full
         }
+        videoGamesArray[numGames] = new VideoGame(titleText, devText, pubText, userRating, year);
+        numGames++;
+
+        cout << "\n" << title << " was added to the video game library!" << endl;
     }
 
-    outputFile.close();
+    inputFile.close();
+}
 
-    cout << "All video games have been printed to " << filename << "." << endl;
-};
+void VideoGameLibrary::removeVideoGameFromArray() {
+    if (numGames <= 1) {
+        cout << "\nThere must always be at least one video game in the library." << endl;
+        return;
+    } else {
+        displayVideoGameTitles();
+        int choice;
+        cout << "\nEnter the number of the video game you wish to remove (1 to " << numGames << "); ";
+        cin >> choice;
 
-VideoGameLibrary::~VideoGameLibrary(){
-    delete[] videoGamesArray;
-    cout << "\nvideoGamesArray: released memory\n";
-};
+        if (choice < 1 || choice > numGames) {
+            cout << "Invalid choice." << endl;
+            return;
+        }
 
-void VideoGameLibrary::addVideoGameToArray()
-{
-    //ask user for info
+        // Delete the game at the selected index
+        delete videoGamesArray[choice - 1];
+
+        // Shift the array to the left
+        for (int i = choice - 1; i < numGames - 1; i++) {
+            videoGamesArray[i] = videoGamesArray[i + 1];
+        }
+
+        // Set the last pointer to nullptr
+        videoGamesArray[numGames - 1] = nullptr;
+
+        // Reduce the number of games
+        numGames--;
+
+        cout << "Game number " << choice << " has been removed." << endl;
+    }
+}
+
+void VideoGameLibrary::saveToFile(string& filename) {
+    ofstream outputFile(filename); // Open in overwrite mode
+    if (!outputFile) {
+        cout << "Error: Unable to open the file!" << endl;
+        return;
+    }
+
+    // Loop through each video game and save the details to the file
+    for (int i = 0; i < numGames; i++) {
+        Text* title = videoGamesArray[i]->getVideoGameTitle();
+        Text* developer = videoGamesArray[i]->getDeveloper();
+        Text* publisher = videoGamesArray[i]->getPublisher();
+        int rating = videoGamesArray[i]->getRating();
+        int year = videoGamesArray[i]->getYearOfRelease();
+
+        // Write the details of each game in the correct format
+        outputFile << title->getText() << endl;
+        outputFile << developer->getText() << endl;
+        outputFile << publisher->getText() << endl;
+        outputFile << rating << endl;
+        outputFile << year << endl;
+    }
+
+    outputFile.close();  // Close the file after writing
+    cout << "All video games have been saved to " << filename << "." << endl;
+}
+
+
+void VideoGameLibrary::addVideoGameToArray() {
     string title, dev, pub;
     int yr, rat;
-    cout << "Title:\t" << endl;
-    getline(cin,title);
-    Text titleText = Text(title.c_str(), title.length());
-    videoGamesArray[numGames]->setTitle(&titleText);
-    cout << "Developer:\t" << endl;
-    getline(cin,dev);
-    Text devText = Text(dev.c_str(), dev.length());
-    videoGamesArray[numGames]->setDeveloper(&devText);
-    cout << "Publisher:\t" << endl;
-    getline(cin, pub);
-    Text pubText = Text(pub.c_str(), pub.length());
-    videoGamesArray[numGames]->setPublisher(&pubText);
-    cout << "Rating:\t" << endl;
-    cin >> rat;
-    cin.ignore();
-    videoGamesArray[numGames]->setRating(rat);
-    cout << "Year:\t" << endl;
-    cin >> yr;
-    cin.ignore();
-    videoGamesArray[numGames]->setRating(yr);
 
-    //adding video game & checking size/resizing
     if (numGames < maxGames) {
-        VideoGame* newGame= new VideoGame(videoGamesArray[numGames]->getVideoGameTitle(),videoGamesArray[numGames]->getDeveloper(), videoGamesArray[numGames]->getPublisher(), videoGamesArray[numGames]->getRating(), videoGamesArray[numGames]->getYearOfRelease());
-        videoGamesArray[numGames] = newGame;
-        cout << "Video game added successfully" << endl;
-    }
-    else {
-        cout << "Video game not added successfully" << endl;
-        resizeVideoGameArray();
-        addVideoGameToArray();
-    }
+        cout << "Title:\t" << endl;
+        cin.ignore(); // Ensure to ignore any leftover input before getline
+        getline(cin, title);
 
-    numGames++;
+        cout << "Developer:\t" << endl;
+        getline(cin, dev);
+
+        cout << "Publisher:\t" << endl;
+        getline(cin, pub);
+
+        cout << "Rating:\t" << endl;
+        cin >> rat;
+        cin.ignore();  // Ignore remaining newline before next input
+
+        cout << "Year:\t" << endl;
+        cin >> yr;
+        cin.ignore();
+
+        // Dynamically create Text objects after the input
+        Text* titleText = new Text(title.c_str(), title.length());
+        Text* devText = new Text(dev.c_str(), dev.length());
+        Text* pubText = new Text(pub.c_str(), pub.length());
+
+        // Create a new VideoGame object and add it to the array
+        VideoGame* newGame = new VideoGame(titleText, devText, pubText, rat, yr);
+        videoGamesArray[numGames] = newGame;
+
+        cout << "Video game added successfully" << endl;
+        numGames++;
+    } else {
+        cout << "Library is full. Resizing..." << endl;
+        resizeVideoGameArray();
+    }
+}
+
+VideoGameLibrary::~VideoGameLibrary() {
+    for (int i = 0; i < numGames; i++) {
+        delete videoGamesArray[i];  // Free the memory for each VideoGame
+    }
+    delete[] videoGamesArray;  // Free the array itself
 }
 
 void VideoGameLibrary::displayVideoGames()
 {
-    if(numGames > 0) {
-        for (int i=0; i < numGames; i++) {
-            videoGamesArray[numGames]->printVideoGameDeets();
+    if (numGames > 0) {
+        for (int i = 0; i < numGames; i++) {
+            cout << "\n";
+            videoGamesArray[i]->printVideoGameDeets();  // Use i instead of numGames
         }
     }
     else {
-        cout << "Library id empty. No video games to display." << endl;
+        cout << "Library is empty. No video games to display." << endl;
     }
 }
 
@@ -174,11 +192,12 @@ void VideoGameLibrary::displayVideoGameTitles()
     string Norman;
 
     if(numGames > 0){
-        for (int i=0; i < numGames; i++) {
+        for (int i=0; i < numGames; i++){
+            cout << "\n";
             videoGamesArray[i]->getVideoGameTitle()->displayText();
         }
     }
-    else {
+    else{
         cout << "Library id empty. No video games to display." << endl;
     }
 }

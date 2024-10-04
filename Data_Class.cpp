@@ -12,62 +12,63 @@ Dri
 
 using namespace std;
 
-class VideoGame{
-
-public:
-
-VideoGame(Text *title, Text *dev, Text *pub, int rating, int yr){
-
-this->devPtr = dev;
-this->namePtr = title;
-this->pubPtr = pub;
-this->rat = rating;
-this->yr = yr;
-return;
-
-
+VideoGame::VideoGame(Text* title, Text* dev, Text* pub, int rating, int year) {
+    this->namePtr = title;
+    this->devPtr = dev;
+    this->pubPtr = pub;
+    this->rat = rating;
+    this->yr = year;
 }
 
-Text* getVideoGameTitle() const {
+Text* VideoGame::getVideoGameTitle() const {
 
     return this->namePtr;
 
 }
-Text* getDeveloper() const {
+Text* VideoGame::getDeveloper() const {
     return this->devPtr;
 }
 
-Text* getPublisher() const {
+Text* VideoGame::getPublisher() const {
     return this->pubPtr;
 }
 
-int getYearOfRelease() const {
+int VideoGame::getYearOfRelease() const {
     return this->yr;
 }
 
-int getRating() const {
+int VideoGame::getRating() const {
     return this->rat;
 }
 
 // Setters
 
-void setDeveloper(Text* developer) {
+void VideoGame::setDeveloper(Text* developer) {
+    if (this->devPtr != nullptr) {
+        delete this->devPtr;  // Free old memory if necessary
+    }
         this->devPtr = developer;
 }
 
-void setTitle(Text* title) {
+void VideoGame::setTitle(Text* title) {
+    if (this->namePtr != nullptr) {
+        delete this->namePtr;  // Free old memory if necessary
+    }
         this->namePtr = title;
 }
 
-void setPublisher(Text* publisher) {
+void VideoGame::setPublisher(Text* publisher) {
+    if (this->pubPtr != nullptr) {
+        delete this->pubPtr;  // Free old memory if necessary
+    }
         this->pubPtr = publisher;
 }
 
-void setYearOfRelease(int year) {
+void VideoGame::setYearOfRelease(int year) {
     this->yr = year;
 }
 
-void setRating(int rating) {
+void VideoGame::setRating(int rating) {
     if (rating >= 0 && rating <= 100) {
         this->rat = rating;
     } else {
@@ -75,20 +76,20 @@ void setRating(int rating) {
     }
 }
 
-void printVideoGameDeets(){
+void VideoGame::printVideoGameDeets(){
 
-    cout<< "Title: ";
+    cout<< "\nTitle: ";
     namePtr->displayText();
-    cout<< "Developer: ";
+    cout<< "\nDeveloper: ";
     devPtr->displayText();
-    cout<< "Publisher: ";
+    cout<< "\nPublisher: ";
     pubPtr->displayText();
-    cout<< "Rating: " << rat << "/100";
-    cout<< "Year of Release: "<< yr; 
+    cout<< "\nRating: " << rat << "/100";
+    cout<< "\nYear of Release: "<< yr; 
     return;
 }
 
-void printVidGameDeetsFile(ofstream& vidGamFile){
+void VideoGame::printVidGameDeetsFile(ofstream& vidGamFile){
 
     vidGamFile.open("TEXT_CASE.txt");
     vidGamFile<< "Title: " << namePtr->getText()<<endl;
@@ -100,22 +101,10 @@ void printVidGameDeetsFile(ofstream& vidGamFile){
     return;
 
 }
-~VideoGame(){
+VideoGame::~VideoGame(){
 
     delete this->namePtr;
     delete this->devPtr;
     delete this->pubPtr;
-    cout << "Video Game Destructor called.";
     return;
 }
-
-private:
-
-    ofstream vidGamFile;
-    Text* namePtr;
-    Text* devPtr;
-    Text* pubPtr;
-    int yr;
-    int rat;
-
-};
