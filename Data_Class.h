@@ -1,3 +1,10 @@
+/*
+FileName: Data_Class.cpp
+Author:Cyrus Loyd
+Created 9/17/24
+Purpose: This class represents a video game with attributes
+*/
+
 #ifndef DATA_CLASS_H
 #define DATA_CLASS_H
 #include <iostream>

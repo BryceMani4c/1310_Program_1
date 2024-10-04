@@ -1,7 +1,8 @@
 /*
 FileName: Data_Class.cpp
-Dri
-
+Author:Cyrus Loyd
+Created 9/17/24
+Purpose: Functions for the VideoGame class. This class will store and manipulate video game data.
 */
 
 
